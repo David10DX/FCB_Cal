@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Calendario</title>
+    <style>
+        /*parte hector*/
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        [class*='div']{
+            display: flex;
+        }
+        body{
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            overflow-x: hidden;
+            background-color: rgb(49,49, 87);
+        }
+        .container{
+            display: flex;
+            flex-direction: column;
+            width: 90%;
+            border-radius: 30px;
+            flex-wrap: wrap;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .mes{
+            display: flex;
+            padding: 10px;
+            background-color: transparent;
+            width: 100%;
+            align-items: center;
+            margin: 5px;
+        }
+        .mes:hover{
+            background-color: chocolate;
+            border-radius: 15px;
+            box-shadow: 0 0 10px black;
+        }
+        a{
+            text-decoration: none;
+            color: black;
+        }
+        .arriba{
+            display: flex;
+            background-color: whitesmoke;
+            height: 10vh;
+            border-radius: 20px;
+        }
+        .abajo{
+            display: flex;
+            width: 100%;
+            flex-direction: column;
+            border-radius: 20px;
+            background-color: white;
+            margin-top: 15px;
+            box-shadow: 0 0 20px lightblue;
+        }
+        .sep{
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            padding: 10px;
+        }
+        .sep:hover{
+            box-shadow: 0 0 10px black;
+            background-color: rgba(255, 255, 255, 0.87);
+            border-left:5px solid rgb(233, 17, 17);
+            border-right: 5px solid rgb(98, 98, 238);
+            color: black;
+            border-radius: 15px;
+        }
+        .fecha{
+            display: flex;
+            margin: 5px;
+            width: 100%;
+        }
+        .logo, img{
+            flex-basis: 20%;
+            height: 15vh;
+        }
+        
+        .fe{
+            text-align: center;
+            flex-basis: 30%;
+            
+        }
+        .par{
+            flex-basis: 20%;
+            text-align: center;
+            display: flex;
+        }
+        .par , .img{
+            width: 100%;
+        }
+        .anuncio{
+            border-radius: 15px;
+            background-color: crimson;
+            flex-basis: 5%;
+            height: 30px;
+            text-align: center;
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+        .texto{
+            text-align: center;
+            margin-top: auto;
+            margin-bottom: auto;
+            margin-left:5px ;
+            margin-right: 5px;
+            
+        }
+       
+       .vs{
+           margin-top: auto;
+           margin-bottom: auto;
+           width: 100%;
+           margin-left: 20px;
+           padding-right: 10px;
+       }
+       h1{
+        font-size: 3em;
+        width: 100%;
+        border-radius: 10px;
+       }
+       .p{
+           width: 100%;
+       }
+       .equipo{
+           width: 30%;
+           
+       }
+       
+      @media only screen and (max-width:720px){
+        
+        .container{
+            width: 500px;
+
+        }
+        .logo{
+            display: none;
+        }
+        .p{
+            font-size: 2vh;
+        }
+        .abajo{
+            font-size: 2vh;
+        }
+        .par{
+            flex-basis: 15%;
+        }
+        .texto{
+            display: none;
+        }
+        .anuncio{
+            margin-left: 60px;
+        }
+        
+      }
+      @media only screen and (max-width:1024px){
+          .texto{
+              display: none;
+          }
+          .abajo{
+              width: 120%;
+          }
+          .anuncio{
+            margin-left: 80px;
+          }
+          .vs{
+              margin-left: 60px;
+              width: 10%;
+              padding: 20px;
+          }
+      }
+      
+
+
+        /*parte eric*/
+        .menuh{
+            background-color: rgb(49, 49, 87);
+            height:50px;
+            box-shadow: 0px 0px 10px red;
+ 	}
+       .menun{
+            display:none;
+        }
+        .men{
+            float:left;
+        }
+        ul{
+            display: none;
+        }
+
+        input:checked  ~ ul{
+            display:block;
+        }
+
+        input {
+            display: none;
+        }
+        label {
+            padding-top:5px;
+            box-sizing: border-box;
+            display: inline-block;
+            width: 40px;
+            height: 50px;
+            line-height: 30px;
+            font-weight: bold;
+            text-align: center;
+            user-select: none;
+            font-size: 40px;
+            color: red;
+        }
+        li{
+            text-decoration: none;
+            color: rgba(105, 105, 148, 0.911);
+            height:60px;
+            font-family: Oswald,sans-serif;
+            font-size: 16px;
+            display: inline-block;
+            padding-top:12px;
+            padding-bottom:12px;
+            text-transform: uppercase;
+            text-shadow: 0px 0px 1px rgba(128, 128, 173, 0.911);
+            font-weight: bold;
+            border: 1px solid rgba(105, 105, 148, 0.226);
+            text-align: center; 
+            background-color: rgb(49, 49, 87)
+        }
+        li a{
+            text-decoration: none;
+            font-family: Oswald,sans-serif;
+            font-size: 16px;
+            color: rgba(105, 105, 148, 0.911);
+            display: inline-block;
+            text-transform: uppercase;
+            text-shadow: 0px 0px 1px rgba(128, 128, 173, 0.911);
+            font-weight: bold;
+            text-align: center;
+        }
+        li:hover{
+            background-color: rgba(148, 34, 34, 0.589);
+            color: rgba(201, 40, 40, 0.658);
+            text-shadow: 0px 0px 1px rgb(180, 57, 57);
+        }
+        li a:hover{
+            background-color: transparent;
+            color: rgba(201, 40, 40, 0.658);
+            text-shadow: 0px 0px 1px rgb(180, 57, 57);
+        }
+        .imagen3{
+            float:left;
+        }
+        .imagen3 img{
+            width:100%;
+            height:45px;
+            padding-top: 5px;
+            padding-right: 5px;
+        }  
+
+ 
+
+ 	    .redes{
+            text-align:center;
+            color:white;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            border-top: 2px solid black;
+            box-shadow: 0px 0px 15px red;
+
+        }
+        .redes h3{
+            font-size: 15px;
+            height:30px;
+            padding-top:20px;
+        }
+        .red{
+            height:60px;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: 0px 0px 0px transparent;
+        }
+        .reds{
+            height:60px;
+            float:left;
+        }
+        .reds img{
+            width:100%;
+            height:60px;
+            padding-left:3px;
+            padding-right:3px;
+            padding-top:3px;
+            padding-bottom:3px;
+        }
+        .creditos{
+            height:120px;
+            background-color: rgba(18,16,37,255);
+            padding-top: 15px;
+            margin-top:120px;
+        }
+        .creditos p{
+            background-color: transparent;
+            font-size: 10px;
+            float: left;
+            text-align:center;
+        }
+        .creditos a{
+            text-decoration: none;
+            background-color: transparent;
+            font-size: 10px;
+            height: 25px;
+            float: left;
+            color:white;
+            font-weight: bold;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            text-align:center;
+        }
+        .creditos a:hover{
+            font-size:15px;
+        }        
+ 
+
+
+ @media only screen and (min-width:769px){
+            .menuh{
+                display: none;
+            }
+            nav{
+                position:fixed;
+            }
+            .menun{
+                display:block;
+                background-color: rgb(49, 49, 87);
+                height:80px;
+                float:left;
+                text-align: center;
+                box-shadow: 0 0 50px red;
+            }
+            .imagen{
+                float:left;
+                padding-top:10px;
+                padding-left: 40px;
+                height:80px;
+                border-left: 5px solid rgb(0, 0, 145);
+                border-right: 5px solid rgb(184, 0, 0);
+                text-align:left;
+            }
+            .imagen:hover{
+                border-bottom: 5px solid rgb(184, 0, 0);
+                border-top: 5px solid rgb(0, 0, 145);
+                padding-top:4px;
+            }
+            .imagen1{
+                width:80%;
+                height: 60px;
+            }
+            .opciones{
+                float:left;
+            }
+            .opcion{
+                text-decoration: none;
+                color: rgba(105, 105, 148, 0.911);
+                height:60px;
+                font-family: Oswald,sans-serif;
+                font-size: 20px;
+                display: block;
+                padding-top:12px;
+                padding-bottom:12px;
+                text-transform: uppercase;
+                text-shadow: 0px 0px 1px rgba(128, 128, 173, 0.911);
+                float:left;
+                font-weight: bold;
+                border: 1px solid rgba(105, 105, 148, 0.226);
+            } 
+            .opcion:hover{
+                background-color: rgba(148, 34, 34, 0.589);
+                color: rgba(201, 40, 40, 0.658);
+                text-shadow: 0px 0px 1px rgb(180, 57, 57);
+            }  
+            .espacio{
+                height:20px;
+                float:right;
+                border: 1px solid rgba(105, 105, 148, 0.226);
+            }
+            .imagen2{
+                float:left;
+            }
+            .imagen2 img{
+                padding-top: 0px;
+                width: 60%;
+                height:56px;
+                padding-top:10px;
+            }
+
+
+	        .redes{
+                height:280px;
+                text-align:center;
+                color:white;
+                font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif ;
+                border-top: 2px solid black;
+                box-shadow: 0px 0px 15px red;
+
+            }
+            .redes h3{
+                font-size: 25px;
+                height:50px;
+                padding-top:20px;
+            }
+            .redes div{
+                box-shadow: 0px 0px 0px transparent;
+            }
+            .red{
+                height:100px;
+                margin-left: auto;
+                margin-right: auto;
+                box-shadow: 0px 0px 0px transparent;
+            }
+            .reds{
+                height:100px;
+                float:left;
+                padding-left:5px;
+                padding-right:5px;
+            }
+            .reds img{
+                width:100%;
+                height:100px;
+                padding:0px;
+            }
+            .reds img:hover{
+                border: 2px solid white;
+            }
+            .creditos{
+                height:70px;
+                background-color: rgba(18,16,37,255);
+                padding-top: 15px;
+                margin-top:0px;
+            }    
+            .creditos p{
+                background-color: transparent;
+                font-size: 15px;
+                float: left;
+                text-align:right;
+            }
+            .creditos a{
+                text-decoration: none;
+                background-color: transparent;
+                font-size: 15px;
+                float: left;
+                color:white;
+                font-weight: bold;
+                font-family: Verdana, Geneva, Tahoma, sans-serif;
+                text-align:center;
+            }
+            .creditos a:hover{
+                font-size:20px;
+            }
+        }
+        .container{
+            padding-top: 150px;
+        }
+        .redes{
+            margin-top: 100px;
+        }
+
+    </style>
+</head>
+<body>
+    
+    <nav class="col-12 col-lg-12 menuh">
+        <div class="men col-10">
+            <input type="checkbox" id="menu">
+            <label for="menu"> ☰ </label>
+            <ul>
+                <li class="col-6"><a href="">NOTICIAS</a></li>
+                <li class="col-6"><a href="">CALENDARIO</a></li>
+                <li class="col-6"><a href="">PALMARÉS</a></li>
+            </ul>
+        </div>
+        <div class="imagen3 col-2">
+            <img src="img/barcelona.png">
+        </div>
+
+    </nav>
+    <nav class="col-12 col-m-12 col-g-12 menun">
+        <div class="imagen col-12 col-lg-3">
+            <img src="img/FCBARCELONA.png" class="imagen1">
+        </div>    
+        <div class="opciones col-12 col-lg-9">
+            <a class="espacio col-12 col-lg-12"></a>
+            <a href="https://david10dx.github.io/desarrolloapps/" class="opcion l-12 col-lg-2">NOTICIAS</a>
+            <a href="https://david10dx.github.io/dise-oweb/" class="opcion l-12 col-lg-2">CALENDARIO</a>
+            <a href="https://david10dx.github.io/kepixelh/" class="opcion l-12 col-lg-2">PALMARÉS</a>
+            <div class="imagen2 col-12 col-lg-6">
+                <img src="img/mesqueunclub.png">
+            </div>
+        </div>
+    </nav>      
+
+    <div class="container">
+        <div class="arriba">
+                <div class="mes">
+                    <a href="#septiembre">SEPTIEMBRE</a>
+                </div>
+            <div class="mes">
+                <a href="#octubre">OCTUBRE</a>
+            </div>
+        </div>
+
+        <div class="abajo">
+            <div class="sep">
+                <h1><a name="septiembre">Septiembre</a></h1>
+                <div class="fecha">
+                    <div class="fe">Sabado, 11 SEPTIEMBRE</div>
+                    <div class="logo"><img src="https://upload.wikimedia.org/wikipedia/commons/1/13/LaLiga.svg"></div>
+                    <div class="par">
+                        <div class="texto">
+                            <p>SEVILLA</p>
+                        </div>
+                        <div class="equipo">
+                            <img src="https://logodownload.org/wp-content/uploads/2018/11/sevilla-logo-escudo.png">
+                        </div>
+                        <div class="vs">
+                            <p>-</p>
+                        </div>
+                        
+                        <div class="equipo">
+                            <img src="http://as00.epimg.net/img/comunes/fotos/fichas/equipos/large/3.png" >
+                        </div>
+                        <div class="texto">
+                            <p>BARCELONA</p>
+                        </div>
+                        
+                    </div>
+                    <div class="anuncio">APLAZADO</div>
+                </div>
+
+            </div>
+
+
+            <div class="sep">
+                <div class="fecha">
+                    <div class="fe">Lunes, 20 SEPTIEMBRE</div>
+                    <div class="logo"><img src="https://upload.wikimedia.org/wikipedia/commons/1/13/LaLiga.svg"></div>
+                    <div class="par">
+                        <div class="texto">
+                            <p>BARCELONA</p>
+                        </div>
+                        <div class="equipo">
+                            <img src="http://as00.epimg.net/img/comunes/fotos/fichas/equipos/large/3.png">
+                        </div>
+                        <div class="vs">
+                            <p>-</p>
+                        </div>
+                        
+                        <div class="equipo">
+                            <img src="https://logodownload.org/wp-content/uploads/2021/02/granada-fc-logo-1.png" >
+                        </div>
+                        <div class="texto">
+                            <p>GRANADA</p>
+                        </div>
+                        
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="sep">
+                <div class="fecha">
+                    <div class="fe">Jueves, 23 SEPTIEMBRE</div>
+                    <div class="logo"><img src="https://upload.wikimedia.org/wikipedia/commons/1/13/LaLiga.svg"></div>
+                    <div class="par">
+                        <div class="texto">
+                            <p>CADIZ</p>
+                        </div>
+                        <div class="equipo">
+                            <img src="http://assets.stickpng.com/thumbs/584ad7abb519ea740933a953.png">
+                        </div>
+                        <div class="vs">
+                            <p>-</p>
+                        </div>
+                        
+                        <div class="equipo">
+                            <img src="http://as00.epimg.net/img/comunes/fotos/fichas/equipos/large/3.png" >
+                        </div>
+                        <div class="texto">
+                            <p>BARCELONA</p>
+                        </div>
+                        
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="sep">
+                <div class="fecha">
+                    <div class="fe">Domingo, 26 SEPTIEMBRE</div>
+                    <div class="logo"><img src="https://upload.wikimedia.org/wikipedia/commons/1/13/LaLiga.svg"></div>
+                    <div class="par">
+                        <div class="texto">
+                            <p>BARCELONA</p>
+                        </div>
+                        <div class="equipo">
+                            <img src="http://as00.epimg.net/img/comunes/fotos/fichas/equipos/large/3.png">
+                        </div>
+                        <div class="vs">
+                            <p>-</p>
+                        </div>
+                        
+                        <div class="equipo">
+                            <img src="https://logodownload.org/wp-content/uploads/2018/11/levante-ud-logo-escudo.png" >
+                        </div>
+                        <div class="texto">
+                            <p>LEVANTE</p>
+                        </div>
+                        
+                    </div>
+                </div>
+
+            </div>
+
+
+
+            <div class="sep">
+                <div class="fecha">
+                    <div class="fe">Miercoles, 29 SEPTIEMBRE</div>
+                    <div class="logo"><img src="http://assets.stickpng.com/images/5842fe06a6515b1e0ad75b3b.png"></div>
+                    <div class="par">
+                        <div class="texto">
+                            <p>BENFICA</p>
+                        </div>
+                        <div class="equipo">
+                            <img src="https://logodownload.org/wp-content/uploads/2017/02/sl-benfica-logo-1.png">
+                        </div>
+                        <div class="vs">
+                            <p>-</p>
+                        </div>
+                        
+                        <div class="equipo">
+                            <img src="http://as00.epimg.net/img/comunes/fotos/fichas/equipos/large/3.png" >
+                        </div>
+                        <div class="texto">
+                            <p>BARCELONA</p>
+                        </div>
+                        
+                    </div>
+                </div>
+
+            </div>
+
+
+
+            <div class="sep">
+                <h1><a name="octubre">Octubre</a></h1>
+                <div class="fecha">
+                    <div class="fe">Sabado, 02 OCTUBRE</div>
+                    <div class="logo"><img src="https://upload.wikimedia.org/wikipedia/commons/1/13/LaLiga.svg"></div>
+                    <div class="par">
+                        <div class="texto">
+                            <p>ATLETICO<br> 
+                                DE<br>
+                                MADRID
+                            </p>
+                        </div>
+                        <div class="equipo">
+                            <img class="num2" src="https://logodownload.org/wp-content/uploads/2017/02/atletico-madrid-logo-1.png">
+                        </div>
+                        <div class="vs">
+                            <p>-</p>
+                        </div>
+                        
+                        <div class="equipo">
+                            <img src="http://as00.epimg.net/img/comunes/fotos/fichas/equipos/large/3.png" >
+                        </div>
+                        <div class="texto">
+                            <p>BARCELONA</p>
+                        </div>
+                        
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="sep">
+                <div class="fecha">
+                    <div class="fe">Domingo, 17 OCTURE</div>
+                    <div class="logo"><img src="https://upload.wikimedia.org/wikipedia/commons/1/13/LaLiga.svg"></div>
+                    <div class="par">
+                        <div class="texto">
+                            <p>BARCELONA</p>
+                        </div>
+                        <div class="equipo">
+                            <img src="http://as00.epimg.net/img/comunes/fotos/fichas/equipos/large/3.png">
+                        </div>
+                        <div class="vs">
+                            <p>-</p>
+                        </div>
+                        
+                        <div class="equipo">
+                            <img src="http://assets.stickpng.com/images/584ad186b519ea740933a89e.png" >
+                        </div>
+                        <div class="texto">
+                            <p>VALECIA</p>
+                        </div>
+                        
+                    </div>
+                </div>
+
+            </div>
+
+
+
+            <div class="sep">
+                <div class="fecha">
+                    <div class="fe">Miercoles, 20 OCTURE</div>
+                    <div class="logo"><img src="http://assets.stickpng.com/images/5842fe06a6515b1e0ad75b3b.png"></div>
+                    <div class="par">
+                        <div class="texto">
+                            <p>BARCELONA</p>
+                        </div>
+                        <div class="equipo">
+                            <img src="http://as00.epimg.net/img/comunes/fotos/fichas/equipos/large/3.png">
+                        </div>
+                        <div class="vs">
+                            <p>-</p>
+                        </div>
+                        
+                        <div class="equipo">
+                            <img src="https://logodownload.org/wp-content/uploads/2021/02/fc-dynamo-kyiv-logo-1-2.png" >
+                        </div>
+                        <div class="texto">
+                            <p>DYNAMO KYEV</p>
+                        </div>
+                        
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="sep">
+                <div class="fecha">
+                <div class="fe">Domingo, 24 OCTURE</div>
+                    <div class="logo"><img src="https://upload.wikimedia.org/wikipedia/commons/1/13/LaLiga.svg"></div>
+                    <div class="par">
+                        <div class="texto">
+                            <p>BARCELONA</p>
+                        </div>
+                        <div class="equipo">
+                            <img src="http://as00.epimg.net/img/comunes/fotos/fichas/equipos/large/3.png">
+                        </div>
+                        <div class="vs">
+                            <p>-</p>
+                        </div>
+                        
+                        <div class="equipo">
+                            <img class="real" src="http://assets.stickpng.com/images/584a9b47b080d7616d298778.png" >
+                        </div>
+                        <div class="texto">
+                            <p>REAL MADRID</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="sep">
+                <div class="fecha">
+                <div class="fe">Miercoles, 27 OCTURE</div>
+                    <div class="logo"><img src="https://upload.wikimedia.org/wikipedia/commons/1/13/LaLiga.svg"></div>
+                    <div class="par">
+                        <div class="texto">
+                            <p>RAYO VALLECANO</p>
+                        </div>
+                        <div class="equipo">
+                            <img src="http://as00.epimg.net/img/comunes/fotos/fichas/equipos/large/2.png">
+                        </div>
+                        <div class="vs">
+                            <p>-</p>
+                        </div>
+                        
+                        <div class="equipo">
+                            <img src="http://as00.epimg.net/img/comunes/fotos/fichas/equipos/large/3.png" >
+                        </div>
+                        <div class="texto">
+                            <p>BARCELONA</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="sep">
+                <div class="fecha">
+                <div class="fe">Domingo, 31 OCTURE</div>
+                    <div class="logo"><img src="https://upload.wikimedia.org/wikipedia/commons/1/13/LaLiga.svg"></div>
+                    <div class="par">
+                        <div class="texto">
+                            <p>BARCELONA</p>
+                        </div>
+                        <div class="equipo">
+                            <img src="http://as00.epimg.net/img/comunes/fotos/fichas/equipos/large/3.png">
+                        </div>
+                        <div class="vs">
+                            <p>-</p>
+                        </div>
+                        
+                        <div class="equipo">
+                            <img src="https://logodownload.org/wp-content/uploads/2018/11/deportivo-Alaves-logo-1.png" >
+                        </div>
+                        <div class="texto">
+                            <p>ALAVES</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+
+    <div class="redes col-12 col-lg-12">
+        <h3 class="col-12 col-lg-12">Sigue al Barça en redes sociales</h3>
+        <div class="red col-10 col-lg-8">
+            <div class="reds col-6 col-lg-2">
+                <a href="https://chats.viber.com/fcbarcelona" target="_blank">
+                    <img src="img/red1.jpg">
+                </a>
+            </div>
+            <div class="reds col-6 col-lg-2">
+                <a href="https://www.facebook.com/fcbarcelona/">
+                    <img src="img/face.jpg">
+                </a>
+            </div>
+            <div class="reds col-6 col-lg-2">
+                <a href="https://twitter.com/fcbarcelona_es" target="_blank">
+                    <img src="img/twitter.jpg">
+                </a>
+            </div>
+            <div class="reds col-6 col-lg-2">
+                <a href="https://www.youtube.com/user/fcbarcelona" target="_blank">
+                    <img src="img/youtube.jpg">
+                </a>    
+            </div>
+            <div class="reds col-6 col-lg-2">
+                <a href="https://www.instagram.com/fcbarcelona/" target="_blank">
+                    <img src="img/insta.jpg">
+                </a>    
+            </div>
+            <div class="reds col-6 col-lg-2">
+                <a href="https://www.tiktok.com/@fcbarcelona" target="_blank">
+                    <img src="img/tiktok.jpg">
+                </a>    
+            </div>
+        </div>
+        <div class="separadort col-12 col-lg-12"></div>
+        <div class="creditos col-12 col-lg-12">
+            <p class="col-12 col-lg-2">Creadores:</p>
+            <a href="https://www.facebook.com/erickdavid.blancosantos/" target="_blank" class="col-12 col-lg-3">||Erick David Blanco||</a> 
+            <a href="https://www.facebook.com/hectorjosue.rodriguesdiscua" target="_blank" class="col-12 col-lg-3">||Héctor Josué Rodrigues||</a>
+            <a href="https://www.facebook.com/profile.php?id=100011257620607" target="_blank" class="col-12 col-lg-3">||Waldin Francisco Castillo||</a>
+           
+        </div>
+    </div> 
+</body>
+</html>
